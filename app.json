@@ -1,0 +1,29 @@
+{
+  "name": "next.nihongo-chushin.com",
+  "description": "heroku review app settings",
+  "scripts": {
+    "postdeploy": "bundle exec rails db:migrate db:seed"
+  },
+  "env": {
+    "RAILS_SERVE_STATIC_FILES": "true",
+    "RAILS_ENV": "staging_heroku",
+    "RACK_ENV": "staging_heroku",
+    "SECRET_KEY_BASE": "onec8063f375e16c650b09fe95f48f030a04639e56122ba98d4c9b0cf7b16a3238af04f86b483412d196e750b2e8838d0fab067b9b75f71380736bc05d3b8f612",
+    "TZ": "Asia/Tokyo",
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "HEROKU_PARENT_APP_NAME": {
+      "required": true
+    }
+  },
+  "addons": [
+      "heroku-postgresql",
+      "heroku-redis"
+  ],
+  "buildpacks": [
+  {
+    "url": "heroku/ruby"
+  }
+  ]
+}
