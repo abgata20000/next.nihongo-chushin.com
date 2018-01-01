@@ -5,14 +5,12 @@ class ActionDispatch::Routing::Mapper
 end
 
 Rails.application.routes.draw do
-  root to: "static_pages#top"
-  get "join" => "registration_emails#new"
-  post "join" => "registration_emails#create"
-  get "join/set/" => "registrations#new", as: :join_set
-  get "faq" => "static_pages#faq", as: "faq"
-  get "signin" => "sessions#new"
-  resource :session, only: %w(new create destroy)
-  resource :registration, only: %w(new create)
+  get 'session/create'
 
+  get 'session/destroy'
+
+  get 'hoge/index'
+
+  root to: "static_pages#top"
   draw :users
 end
