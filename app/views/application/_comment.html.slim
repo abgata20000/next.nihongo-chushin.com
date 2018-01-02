@@ -1,0 +1,4 @@
+- if chat.system_message
+  = render 'system_comment', chat: chat
+- else
+  = render 'user_comment', chat: chat

@@ -5,12 +5,16 @@ class ActionDispatch::Routing::Mapper
 end
 
 Rails.application.routes.draw do
-  get 'session/create'
-
-  get 'session/destroy'
-
-  get 'hoge/index'
-
-  root to: "static_pages#top"
-  draw :users
+  root to: 'static_pages#top'
+  resource :my_pages, only: %w(show)
+  resource :room, only: %w() do
+    get 'leave'
+  end
+  resources :rooms, only: %w(new create show index edit update destroy)
+  resources :chats, only: %w(create)
+  resource :sessions, only: %w(create destroy)
+  get 'signin', to: 'sessions#new'
+  #
+  draw :apis
+  draw :admins
 end

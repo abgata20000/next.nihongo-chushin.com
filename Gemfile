@@ -18,7 +18,8 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker'
+# gem 'webpacker'
+gem 'webpacker', github: 'rails/webpacker'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -29,7 +30,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -58,7 +59,6 @@ gem 'rack-user_agent'
 gem 'newrelic_rpm'
 gem 'slim-rails'
 gem 'simple_form'
-gem 'redis-rails'
 
 group :test, :development do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -103,6 +103,8 @@ group :development do
   gem 'view_source_map'
   gem 'rails_layout', github: 'RailsApps/rails_layout'
   gem 'seed_dump'
+  gem 'pry'
+  gem 'pry-rails'
 end
 
 group :test do

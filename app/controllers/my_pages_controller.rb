@@ -1,7 +1,6 @@
 class MyPagesController < ApplicationController
-  def create
+  before_action :logged_in_check
+  def show
   end
 
-  def destroy
-  end
 end

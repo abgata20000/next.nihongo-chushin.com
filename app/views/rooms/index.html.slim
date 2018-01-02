@@ -1,0 +1,12 @@
+h1
+  | Room
+  = link_to '[作成]', new_room_path
+
+- @rooms.each do |room|
+  p
+    = "#{room.name}(#{room.users.size}/#{room.num})"
+    - if current_user.room.blank?
+      - if room.max?
+        | [満室]
+      - else
+        = link_to '[入室]', room_path(room)

@@ -1,2 +1,11 @@
 h1
   | TOP
+
+p
+  = link_to '部屋一覧', rooms_path
+
+- if current_user.room.present?
+  p
+    = link_to 'チャットルーム', room_path(current_user.room)
+p
+  = link_to 'マイページ', my_pages_path

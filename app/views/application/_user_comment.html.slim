@@ -1,0 +1,5 @@
+.comment.user_comment
+  = image_tag("/images/icon/#{chat.icon}.png", class: "color #{chat.color}")
+  p = chat.comment
+  p = "by #{chat.nickname}"
+  p = I18n.l(chat.created_at)

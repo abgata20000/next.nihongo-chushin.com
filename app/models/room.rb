@@ -37,23 +37,33 @@ class Room < ApplicationRecord
   default_value_for :connection_disconnected_time, 60
   default_value_for :comment_disconnected_time, 600
   default_value_for :num, 5
-  default_value_for :public, false
-  default_value_for :knock, false
+  default_value_for :language, 'ja'
+  default_value_for :is_public, false
+  default_value_for :is_visible, true
+  default_value_for :can_knock, false
+  default_value_for :is_fixed, false
+  default_value_for :show_comment_count, 100
 
-  validates :name, presence: true, length: { in: 1..20 }
+  validates :name, presence: true, length: { in: 2..20 }
   validates :num, presence: true, numericality: {greater_than_or_equal_to: 2, less_than_or_equal_to: 10}
   validates :connection_disconnected_time, presence: true, numericality: {greater_than_or_equal_to: 10, less_than_or_equal_to: 3600}
   validates :comment_disconnected_time, presence: true, numericality: {greater_than_or_equal_to: 10, less_than_or_equal_to: 3600}
 
+  scope :enabled, -> { where(deleted_at: nil) }
+
   def max?
     num <= users.size
+  end
+
+  def enabled?
+    deleted_at.nil?
   end
 
   def first_user
     users.into_the_room_at_asc.first
   end
 
-  def move_owner
-    update_attributes(user: first_user)
+  def move_owner_first_user
+    update(user: first_user)
   end
 end

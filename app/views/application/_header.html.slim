@@ -1,0 +1,9 @@
+h1
+  = link_to 'Nihongo中心', root_path
+- if logged_in?
+  p
+    = "ようこそ、#{current_user.nickname}様"
+    |
+    = link_to '[ログアウト]', sessions_path, method: :delete
+- else
+  = link_to '[ログイン]', signin_path

@@ -1,0 +1,7 @@
+h1
+  | ログインページ
+= simple_form_for(@user_session, url: {action: :create}) do |f|
+  p
+    = f.input :nickname
+  button(type="submit")
+    | ログイン
