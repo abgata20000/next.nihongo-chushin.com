@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   root to: 'static_pages#top'
-  resource :my_pages, only: %w(show)
+  resource :my_pages, only: %w(show update)
   resource :room, only: %w() do
     delete 'leave'
     delete 'ban_user'

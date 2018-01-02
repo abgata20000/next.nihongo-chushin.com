@@ -20,6 +20,4 @@ class Icon < ActiveHash::Base
   def url
     "/images/icon/#{name}.png"
   end
-
-
 end

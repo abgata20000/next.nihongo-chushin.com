@@ -1,2 +1,9 @@
 h1
   | マイページ
+= simple_form_for(current_user, url: {action: :update}) do |f|
+  p
+    = render 'colors'
+    = f.input :color, as: :hidden
+  = f.input :sound, as: :hidden
+  button(type="submit")
+    | 更新

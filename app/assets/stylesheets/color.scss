@@ -1,5 +1,175 @@
+.color-box {
+  border: solid 2px #333;
+  padding: 5px;
+  margin: 3px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+
+  &.selected {
+    border: solid 5px #999;
+  }
+}
 .color {
+  color: #FFF;
+
+  &.darkgoldenrod {
+    background-color: darkgoldenrod;
+  }
+  &.sandybrown {
+    background-color: sandybrown;
+  }
+  &.tan {
+    background-color: tan;
+  }
+  &.darkslategray {
+    background-color: darkslategray;
+  }
+  &.limegreen {
+    background-color: limegreen;
+  }
+  &.lightgreen {
+    background-color: lightgreen;
+    color: #404040;
+  }
+  &.EFB435 {
+    background-color: #EFB435;
+  }
+  &.gray {
+    background-color: gray;
+  }
   &.black {
     background-color: black;
+  }
+  &.f8b500 {
+    background-color: #f8b500;
+  }
+  &.CDC673 {
+    background-color: #CDC673;
+  }
+  &.DDA0DD {
+    background-color: #DDA0DD;
+  }
+  &.FFD700 {
+    background-color: #FFD700;
+  }
+  &.cadetblue {
+    background-color: cadetblue;
+  }
+  &.slateblue {
+    background-color: slateblue;
+  }
+  &.royalblue {
+    background-color: royalblue;
+  }
+  &.green {
+    background-color: green;
+  }
+  &.purple {
+    background-color: purple;
+  }
+  &.navy {
+    background-color: navy;
+  }
+  &.lightcoral {
+    background-color: lightcoral;
+  }
+  &.pink {
+    background-color: pink;
+    color: #666;
+  }
+  &.red {
+    background-color: red;
+  }
+  &.darkred {
+    background-color: darkred;
+  }
+  &.crimson {
+    background-color: crimson;
+  }
+  &.peru {
+    background-color: peru;
+  }
+  &.chocolate {
+    background-color: chocolate;
+  }
+  &.sienna {
+    background-color: sienna;
+  }
+  &.teal {
+    background-color: teal;
+  }
+  &.n008db7 {
+    background-color: #008db7;
+  }
+  &.darkorange {
+    background-color: darkorange;
+  }
+  &.deeppink {
+    background-color: deeppink;
+  }
+  &.n84c1ff {
+    background-color: #84c1ff;
+  }
+  &.ff7fff {
+    background-color: #ff7fff;
+  }
+  &.ffff7f {
+    background-color: #ffff7f;
+    color: #001e43;
+  }
+  &.ffbf7f {
+    background-color: #ffbf7f;
+  }
+  &.n00608d {
+    background-color: #00608d;
+  }
+  &.n9f166a {
+    background-color: #9f166a;
+  }
+  &.dc6b9a {
+    background-color: #dc6b9a;
+  }
+  &.eb6ea0 {
+    background-color: #eb6ea0;
+  }
+  &.n6e4a55 {
+    background-color: #6e4a55;
+  }
+  &.n3cb37a {
+    background-color: #3cb37a;
+  }
+  &.bccddb {
+    background-color: #bccddb;
+    color: #9370DB;
+  }
+  &.n288c66 {
+    background-color: #288c66;
+  }
+  &.n0075c2 {
+    background-color: #0075c2;
+  }
+  &.n00a1e9 {
+    background-color: #00a1e9;
+  }
+  &.ea5549 {
+    background-color: #ea5549;
+  }
+  &.d70035 {
+    background-color: #d70035;
+  }
+  &.n6c2735 {
+    background-color: #6c2735;
+  }
+  &.n9d8e87 {
+    background-color: #9d8e87;
+  }
+  &.n946c45 {
+    background-color: #946c45;
+  }
+  &.ffedab {
+    background-color: #ffedab;
+    color: #656565;
   }
 }
