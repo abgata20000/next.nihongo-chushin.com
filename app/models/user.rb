@@ -38,6 +38,7 @@
 #
 
 class User < ApplicationRecord
+  include EchoSystemCommentable
   DEFAULT_ICON = 'default'
   DEFAULT_COLOR = 'black'
   DEFAULT_SOUND = 'default'
@@ -91,13 +92,9 @@ class User < ApplicationRecord
     update(room_id: nil, nickname: nil, color: DEFAULT_COLOR, icon: DEFAULT_ICON, sound: DEFAULT_SOUND, into_the_room_at: nil, last_commented_at: nil, last_connected_at: nil)
   end
 
-  def now
-    Time.zone.now
-  end
-
   def into_the_room_system_comment
     message = "#{nickname}さんが入室しました。"
-    echo_system_comment(message)
+    echo_system_comment(message, is_broadcast_to_user: true, is_broadcast_to_room: true)
   end
 
   def create_the_room_system_comment
@@ -107,13 +104,17 @@ class User < ApplicationRecord
 
   def leave_the_room_system_comment
     message = "#{nickname}さんが退室しました。"
-    echo_system_comment(message)
+    echo_system_comment(message, is_broadcast_to_user: true, is_broadcast_to_room: true)
   end
 
-  def echo_system_comment(message)
-    pp '*'*100
-    pp message
-    Chat::SystemMessage.create!(room: room, comment: message)
+  def ban_the_room_system_comment
+    message = "#{nickname}さんが退室させられました。"
+    echo_system_comment(message, is_broadcast_to_user: true, is_broadcast_to_room: true)
+  end
+
+  def disconnected_the_room_system_comment
+    message = "#{nickname}さんの接続が切断されました。"
+    echo_system_comment(message, is_broadcast_to_user: true, is_broadcast_to_room: true)
   end
 
   def into_the_room(room)
@@ -125,31 +126,52 @@ class User < ApplicationRecord
   end
 
   def connected
-    update(last_connected_at: Time.zone.now)
+    update(last_connected_at: now)
+  end
+
+  def ban!
+    ban_the_room_system_comment
+    leave_room
+    broadcast_disconnect
   end
 
   def leave_room
+    prev_room = room
     update(room: nil, into_the_room_at: nil, last_commented_at: nil, last_connected_at: nil)
+    prev_room.close_with_leave_if_empty_users
+    prev_room.move_owner_first_user
   end
 
   def room_owner?
     room && room.user_id == id
   end
 
+  def room_expired?
+    connection_expired? || comment_expired?
+  end
+
   def connection_expired?
     return true if room.blank?
-    last_connected_at + room.connection_disconnected_time.second < Time.zone.now
+    last_connected_at + room.connection_disconnected_time.second < now
   end
 
   def comment_expired?
     return true if room.blank?
-    last_commented_at + room.comment_disconnected_time.second < Time.zone.now
+    last_commented_at + room.comment_disconnected_time.second < now
+  end
+
+  def render_view
+    ApplicationController.renderer.render(partial: 'user', locals: {user: self})
   end
 
   private
 
   def generate_token
     self.token = SecureRandom.hex(32) if token.blank?
+  end
+
+  def user_id
+    id
   end
 
 end

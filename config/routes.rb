@@ -5,12 +5,16 @@ class ActionDispatch::Routing::Mapper
 end
 
 Rails.application.routes.draw do
+  # require 'sidetiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   root to: 'static_pages#top'
   resource :my_pages, only: %w(show)
   resource :room, only: %w() do
-    get 'leave'
+    delete 'leave'
+    delete 'ban_user'
   end
-  resources :rooms, only: %w(new create show index edit update destroy)
+  resources :rooms, only: %w(new create show index edit update)
   resources :chats, only: %w(create)
   resource :sessions, only: %w(create destroy)
   get 'signin', to: 'sessions#new'

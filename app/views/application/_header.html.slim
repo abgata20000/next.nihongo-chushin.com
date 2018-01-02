@@ -4,6 +4,9 @@ h1
   p
     = "ようこそ、#{current_user.nickname}様"
     |
-    = link_to '[ログアウト]', sessions_path, method: :delete
+    - if current_user.room
+      = link_to '[退室]', leave_room_path, method: :delete
+    - else
+      = link_to '[ログアウト]', sessions_path, method: :delete
 - else
   = link_to '[ログイン]', signin_path

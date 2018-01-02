@@ -1,15 +1,14 @@
 class RoomsController < ApplicationController
   before_action :logged_in_check
-  before_action :find_room, only: %w(show edit update destroy)
+  before_action :find_room, only: %w(show edit update)
   before_action :set_room, only: %w(new create)
   before_action :set_room_id_to_current_user, only: %w(show)
-  before_action :check_current_room, only: %w(show edit update destroy new create)
+  before_action :check_current_room, only: %w(show edit update new create ban_user)
   before_action :check_room_max, only: %w(show)
-  before_action :check_room_owner, only: %w(edit update)
-
+  before_action :check_room_owner, only: %w(edit update ban_user)
 
   def index
-    @rooms = Room.includes(:users).enabled.order(updated_at: :desc).limit(10).all
+    @rooms = Room.active_rooms
   end
 
   def show
@@ -22,14 +21,19 @@ class RoomsController < ApplicationController
 
   def create
     if @room.save
-      current_user.into_the_room(@room)
-      current_user.create_the_room_system_comment
       redirect_to room_path(@room)
     else
       render :new
     end
   end
 
+  def edit
+
+  end
+
+  def update
+
+  end
 
   def leave
     if current_user.room
@@ -37,6 +41,15 @@ class RoomsController < ApplicationController
       current_user.leave_room
     end
     redirect_to rooms_path
+  end
+
+  def ban_user
+    user_id = params[:user_id]
+    user = User.find(user_id)
+    user.ban!
+    redirect_to room_path(current_user.room)
+  rescue => _e
+    redirect_to room_path(current_user.room)
   end
 
   private
@@ -52,13 +65,15 @@ class RoomsController < ApplicationController
   end
 
   def set_room
-    @room = Room.new(controller_params)
+    @room = Room::ForCreate.new(controller_params)
     @room.user = current_user
   end
 
   def find_room
-    @room = Room.find(id)
+    @room = Room.enabled.find(id)
     @room.assign_attributes(controller_params)
+  rescue => _e
+    redirect_to rooms_path
   end
 
   def controller_params
@@ -74,7 +89,6 @@ class RoomsController < ApplicationController
     return unless @room.max?
     redirect_to rooms_path, notice: '満室です。'
   end
-
 
   def check_room_owner
     return if current_user.room_owner?

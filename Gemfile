@@ -59,6 +59,13 @@ gem 'rack-user_agent'
 gem 'newrelic_rpm'
 gem 'slim-rails'
 gem 'simple_form'
+# sidekiq
+gem 'sidekiq'
+gem 'sidekiq-failures'
+gem 'sidekiq-history'
+gem 'sidekiq-statistic'
+gem 'sidekiq-limit_fetch'
+gem 'redis-namespace'
 
 group :test, :development do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

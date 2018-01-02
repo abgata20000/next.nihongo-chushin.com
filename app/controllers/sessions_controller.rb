@@ -14,7 +14,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    reset_current_user
+    unless current_user.room
+      reset_current_user
+    end
     redirect_to root_path
   end
 

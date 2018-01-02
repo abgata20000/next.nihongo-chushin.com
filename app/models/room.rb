@@ -30,11 +30,14 @@
 #
 
 class Room < ApplicationRecord
+  include EchoSystemCommentable
+
+  LIMIT_NUM = 100
   belongs_to :user
   has_many :users
   has_many :chats
 
-  default_value_for :connection_disconnected_time, 60
+  default_value_for :connection_disconnected_time, 300
   default_value_for :comment_disconnected_time, 600
   default_value_for :num, 5
   default_value_for :language, 'ja'
@@ -44,12 +47,40 @@ class Room < ApplicationRecord
   default_value_for :is_fixed, false
   default_value_for :show_comment_count, 100
 
-  validates :name, presence: true, length: { in: 2..20 }
+  validates :name, presence: true, length: {in: 2..20}
   validates :num, presence: true, numericality: {greater_than_or_equal_to: 2, less_than_or_equal_to: 10}
   validates :connection_disconnected_time, presence: true, numericality: {greater_than_or_equal_to: 10, less_than_or_equal_to: 3600}
   validates :comment_disconnected_time, presence: true, numericality: {greater_than_or_equal_to: 10, less_than_or_equal_to: 3600}
 
   scope :enabled, -> { where(deleted_at: nil) }
+  scope :newest, -> { order(updated_at: :desc) }
+
+  class << self
+    def active_rooms
+      includes(:users).enabled.newest.limit(LIMIT_NUM)
+    end
+  end
+
+  def close_with_leave_if_empty_users
+    return if is_fixed
+    return if users.count > 0
+    close
+  end
+
+  def title_with_nums
+    "(#{users.count}/#{num})#{name}"
+  end
+
+  def show_attributes
+    tmp = attributes
+    tmp.delete('password')
+    tmp[:room_name] = title_with_nums
+    tmp
+  end
+
+  def close
+    update(deleted_at: now)
+  end
 
   def max?
     num <= users.size
@@ -64,6 +95,20 @@ class Room < ApplicationRecord
   end
 
   def move_owner_first_user
+    return if user && user.room_id == id
     update(user: first_user)
+    move_owner_system_comment
+  end
+
+  def move_owner_system_comment
+    return unless user
+    message = "#{user.nickname}さんに管理権限が移動しました。"
+    echo_system_comment(message, is_broadcast_to_user: true, is_broadcast_to_room: true)
+  end
+
+  private
+
+  def room_id
+    id
   end
 end

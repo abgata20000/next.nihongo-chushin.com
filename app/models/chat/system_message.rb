@@ -29,6 +29,5 @@ class Chat < ApplicationRecord
 
     default_value_for :system_message, true
 
-
   end
 end

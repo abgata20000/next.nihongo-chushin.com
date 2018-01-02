@@ -26,6 +26,8 @@ module NextNihongoChushinCom
       g.helper false
     end
 
+    config.active_job.queue_adapter = :sidekiq
+
     config.active_record.default_timezone = :local
     config.time_zone = "Tokyo"
     I18n.enforce_available_locales = true

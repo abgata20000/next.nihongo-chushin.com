@@ -3,7 +3,20 @@ class Chat < ApplicationRecord
     extend ActiveSupport::Concern
 
     included do
+      attribute :is_broadcast_to_chat, :boolean
+      attribute :is_broadcast_to_room, :boolean
+      attribute :is_broadcast_to_user, :boolean
+
+      default_value_for :is_broadcast_to_chat, true
+      default_value_for :is_broadcast_to_room, false
+      default_value_for :is_broadcast_to_user, false
+
       after_save :broadcast
+    end
+
+
+    def broadcast_disconnect
+      ActionCable.server.broadcast user_label, {is_disconnect: true}
     end
 
     private
@@ -17,7 +30,16 @@ class Chat < ApplicationRecord
     end
 
     def broadcast
-      ActionCable.server.broadcast room_label, {chat_id: id}
+      ActionCable.server.broadcast room_label, broadcast_params
+    end
+
+    def broadcast_params
+      {
+          chat_id: id,
+          is_chat: is_broadcast_to_chat,
+          is_room: is_broadcast_to_room,
+          is_user: is_broadcast_to_user
+      }
     end
   end
 end
