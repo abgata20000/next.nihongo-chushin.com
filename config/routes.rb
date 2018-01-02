@@ -12,9 +12,12 @@ Rails.application.routes.draw do
   resource :my_pages, only: %w(show update)
   resource :room, only: %w() do
     delete 'leave'
+  end
+  resources :rooms, only: %w(new create show index edit update) do
+    get 'join'
+    get 'users'
     delete 'ban_user'
   end
-  resources :rooms, only: %w(new create show index edit update)
   resources :chats, only: %w(create)
   resource :sessions, only: %w(create destroy)
   get 'signin', to: 'sessions#new'

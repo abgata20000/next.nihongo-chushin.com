@@ -5,7 +5,6 @@ class Room < ApplicationRecord
     after_create :echo_system_message_with_create
     after_create :set_cleanup_job
 
-
     private
 
     def set_room_to_user

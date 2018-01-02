@@ -1,10 +1,10 @@
 class RoomsController < ApplicationController
   before_action :logged_in_check
-  before_action :find_room, only: %w(show edit update)
+  before_action :find_room, only: %w(show edit update users ban_user join)
   before_action :set_room, only: %w(new create)
-  before_action :set_room_id_to_current_user, only: %w(show)
-  before_action :check_current_room, only: %w(show edit update new create ban_user)
-  before_action :check_room_max, only: %w(show)
+  before_action :check_room_max, only: %w(join)
+  before_action :set_room_id_to_current_user, only: %w(join)
+  before_action :check_current_room, only: %w(show edit update new create ban_user users)
   before_action :check_room_owner, only: %w(edit update ban_user)
 
   def index
@@ -13,6 +13,10 @@ class RoomsController < ApplicationController
 
   def show
 
+  end
+
+  def join
+    redirect_to room_path(current_user.room)
   end
 
   def new
@@ -32,7 +36,11 @@ class RoomsController < ApplicationController
   end
 
   def update
-
+    if @room.save
+      redirect_to room_path(@room)
+    else
+      render :edit
+    end
   end
 
   def leave
@@ -41,6 +49,10 @@ class RoomsController < ApplicationController
       current_user.leave_room
     end
     redirect_to rooms_path
+  end
+
+  def users
+    @users = @room.users
   end
 
   def ban_user
@@ -55,7 +67,7 @@ class RoomsController < ApplicationController
   private
 
   def id
-    params[:id]
+    params[:room_id] || params[:id]
   end
 
   def set_room_id_to_current_user
@@ -70,7 +82,7 @@ class RoomsController < ApplicationController
   end
 
   def find_room
-    @room = Room.enabled.find(id)
+    @room = Room::ForUpdate.enabled.find(id)
     @room.assign_attributes(controller_params)
   rescue => _e
     redirect_to rooms_path
@@ -86,6 +98,7 @@ class RoomsController < ApplicationController
   end
 
   def check_room_max
+    return if current_user.room_id == @room.id
     return unless @room.max?
     redirect_to rooms_path, notice: '満室です。'
   end
