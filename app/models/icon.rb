@@ -9,8 +9,16 @@ class Icon < ActiveHash::Base
     create(id: id, name: "icon_#{id}")
   end
 
+  def icon_class(current_user)
+    class_arr = ['color', 'black', 'icon']
+    if current_user && current_user.icon == name
+      class_arr << 'selected'
+    end
+    class_arr.join(' ')
+  end
+
   def url
-    "/icon/#{name}.png"
+    "/images/icon/#{name}.png"
   end
 
 

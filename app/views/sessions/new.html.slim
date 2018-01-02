@@ -3,5 +3,8 @@ h1
 = simple_form_for(@user_session, url: {action: :create}) do |f|
   p
     = f.input :nickname
+  p
+    = render 'icons'
+    = f.input :icon, as: :hidden
   button(type="submit")
     | ログイン
