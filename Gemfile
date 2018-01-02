@@ -66,6 +66,8 @@ gem 'sidekiq-history'
 gem 'sidekiq-statistic'
 gem 'sidekiq-limit_fetch'
 gem 'redis-namespace'
+gem 'redis-rails'
+
 
 group :test, :development do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
