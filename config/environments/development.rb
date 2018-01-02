@@ -57,4 +57,6 @@ Rails.application.configure do
 
   # config.x.webpacker[:dev_server_host] = "http://127.0.0.1:3035"
   config.x.webpacker[:dev_server_host] = "http://localhost:3035"
+
+  config.session_store :redis_store, servers: ENV["REDIS_URL"], expire_in: 1.days
 end

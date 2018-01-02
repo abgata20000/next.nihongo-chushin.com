@@ -16,4 +16,10 @@ namespace :db do
     sh "bundle exec ridgepole -c config/database.yml -E #{Rails.env} --apply -f #{schema_file}"
     sh "bundle exec annotate" if Rails.env.development?
   end
+
+  desc "Run RAILS_ENV=#{Rails.env} ridgepole for heroku"
+  task :heroku do
+    schema_file = 'db/Schemafile'
+    sh "bundle exec ridgepole -c config/database.for.heroku.ridgepole.yml -E #{Rails.env} --apply -f #{schema_file}"
+  end
 end
