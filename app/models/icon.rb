@@ -10,7 +10,7 @@ class Icon < ActiveHash::Base
   end
 
   def icon_class(current_user)
-    class_arr = ['color', 'black', 'icon']
+    class_arr = ['color', 'icon']
     if current_user && current_user.icon == name
       class_arr << 'selected'
     end

@@ -1,0 +1,24 @@
+.color-box {
+  border: solid 2px #333;
+  padding: 5px;
+  margin: 3px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+
+  &.selected {
+    border: solid 5px #999;
+  }
+}
+
+.color {
+  background: black;
+  color: #000;
+}
+<% Color.all.each do |color| %>
+.color_<%= color.name %> {
+  background: <%= color.color %>;
+  color: <%= color.text_color %>;
+}
+<% end %>

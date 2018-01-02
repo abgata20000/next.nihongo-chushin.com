@@ -83,7 +83,7 @@ export default class ChatForm extends React.Component {
             .get(this.room_url)
             .end(function (err, res) {
                 var room = res.body;
-                if(room) {
+                if (room) {
                     _this.setState({
                         roomName: room.room_name
                     })
@@ -97,7 +97,7 @@ export default class ChatForm extends React.Component {
             .get(this.users_url)
             .end(function (err, res) {
                 var users = res.body;
-                if(users) {
+                if (users) {
                     _this.setState({
                         users: users
                     });
@@ -136,7 +136,7 @@ export default class ChatForm extends React.Component {
                     this.fetchRoom();
                 }
 
-                if(data.is_disconnect) {
+                if (data.is_disconnect) {
                     window.reload();
                 }
             },
@@ -167,16 +167,18 @@ export default class ChatForm extends React.Component {
                 <div id="users-box">
                     <h2>Users</h2>
                     {this.state.users.map((user, idx) => {
-                        return <li key={idx} dangerouslySetInnerHTML={{__html: user}}></li>
+                        return <div key={idx} dangerouslySetInnerHTML={{__html: user}}></div>
                     })}
                 </div>
                 <div id="comments-box">
-                    <h2>Comments</h2>
-                    <input id="comment-input" type="text" onKeyDown={this.onEnter} onChange={this.onChange}
-                           value={this.state.inputComment}/>
-                    <ul>
+                    <div id="comment-form">
+                        <input id="comment-input" type="text" onKeyDown={this.onEnter} onChange={this.onChange}
+                               value={this.state.inputComment}/>
+                    </div>
+                    <ul id="comments">
                         {this.state.comments.map((comment, idx) => {
-                            return <li key={idx} dangerouslySetInnerHTML={{__html: comment}}></li>
+                            return <div className="comment-wrap" key={idx}
+                                       dangerouslySetInnerHTML={{__html: comment}}></div>
                         })}
                     </ul>
                 </div>

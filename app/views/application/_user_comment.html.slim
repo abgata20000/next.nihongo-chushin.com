@@ -1,5 +1,10 @@
-.comment.user_comment
-  = image_tag("/images/icon/#{chat.icon}.png", class: "color #{chat.color}")
-  p = chat.comment
-  p = "by #{chat.nickname}"
-  p = I18n.l(chat.created_at)
+.right-content-wrap
+  .right-content
+    div(class="desc medium color_#{chat.color}")
+      = chat.comment
+.left-content
+  .user-info
+    div(class="avator medium color_#{chat.color}")
+      = image_tag("/images/icon/#{chat.icon}.png")
+    .name
+      = chat.nickname
