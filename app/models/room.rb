@@ -53,6 +53,7 @@ class Room < ApplicationRecord
   validates :comment_disconnected_time, presence: true, numericality: {greater_than_or_equal_to: 10, less_than_or_equal_to: 3600}
 
   scope :enabled, -> { where(deleted_at: nil) }
+  scope :disabled, -> { where.not(deleted_at: nil) }
   scope :newest, -> { order(updated_at: :desc) }
 
   class << self

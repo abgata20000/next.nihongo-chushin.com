@@ -36,6 +36,7 @@ module NextNihongoChushinCom
     config.beginning_of_week = :sunday
 
     config.paths.add 'lib', eager_load: true
+    config.eager_load_paths += Dir[Rails.root.join('app', 'services', 'concerns')]
     config.eager_load_paths += Dir[Rails.root.join('app', 'decorators', 'concerns')]
     config.eager_load_paths += Dir[Rails.root.join('app', 'uploaders', 'concerns')]
 

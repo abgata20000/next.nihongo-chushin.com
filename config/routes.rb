@@ -6,7 +6,7 @@ end
 
 Rails.application.routes.draw do
   # require 'sidetiq/web'
-  mount Sidekiq::Web => '/sidekiq'
+  mount Sidekiq::Web => '/my-sidekiq'
 
   root to: 'static_pages#top'
   resource :my_pages, only: %w(show update)
