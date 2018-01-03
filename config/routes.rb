@@ -5,7 +5,9 @@ class ActionDispatch::Routing::Mapper
 end
 
 Rails.application.routes.draw do
-  # require 'sidetiq/web'
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == ENV['SIDEKIQ_BASIC_USER'] && password == ENV['SIDEKIQ_BASIC_PASSWORD']
+  end
   mount Sidekiq::Web => '/my-sidekiq'
 
   root to: 'static_pages#top'
