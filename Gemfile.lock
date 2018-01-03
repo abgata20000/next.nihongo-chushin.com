@@ -20,6 +20,13 @@ GIT
       activesupport (>= 3.2)
 
 GIT
+  remote: https://github.com/doabit/semantic-ui-sass.git
+  revision: 9395d5cbcc7c63de5b751c3b270d01cc2e12473f
+  specs:
+    semantic-ui-sass (2.2.12.1)
+      sass (>= 3.2)
+
+GIT
   remote: https://github.com/rails/webpacker.git
   revision: 05062bd72a6e759d34ed3f4e05639dbd0f3b4ce4
   specs:
@@ -649,6 +656,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   seed_dump
   selenium-webdriver
+  semantic-ui-sass!
   sidekiq
   sidekiq-failures
   sidekiq-history

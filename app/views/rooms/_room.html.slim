@@ -1,0 +1,18 @@
+.ui.card
+  .content
+    .header
+      = "#{room.current_room_num}#{room.name}"
+  .content
+    .ui.small.feed
+      - room.users.each do |user|
+        .user-list-item
+          = render 'user', user: user
+
+  .extra.content
+    - if current_user.room.blank?
+      - if room.max?
+        .ui.button.fluid.huge.submit
+          = I18n.t(:full_of_room)
+      - else
+        = link_to I18n.t(:into_the_room), room_join_path(room), class: 'ui button fluid huge submit teal'
+

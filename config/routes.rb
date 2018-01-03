@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :chats, only: %w(create)
   resource :sessions, only: %w(create destroy)
   get 'signin', to: 'sessions#new'
+  get 'sessions', to: 'sessions#new'
   #
   draw :apis
   draw :admins

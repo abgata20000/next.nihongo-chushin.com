@@ -1,12 +1,8 @@
-h1
-  = link_to 'Nihongo中心', root_path
-- if logged_in?
-  p
-    = "ようこそ、#{current_user.nickname}様"
-    |
-    - if current_user.room
-      = link_to '[退室]', leave_room_path, method: :delete
+header.ui.fixed.inverted.menu
+  .ui.container
+    = link_to root_path
+      = image_tag '/images/logo/logo.png'
+    - if logged_in?
+      = render 'nav_logged_in'
     - else
-      = link_to '[ログアウト]', sessions_path, method: :delete
-- else
-  = link_to '[ログイン]', signin_path
+      = render 'nav'

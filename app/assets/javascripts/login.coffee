@@ -1,4 +1,4 @@
-onPageLoad 'sessions new', ->
+onPageLoad 'sessions', ->
   window.selectIcon = (elem) ->
     $this = $(elem)
     $('.icon').removeClass('selected')

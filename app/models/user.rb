@@ -85,6 +85,8 @@ class User < ApplicationRecord
   validates :role, presence: true
 
   after_initialize :generate_token
+  before_validation :strip_name
+  before_validation :strip_nickname
 
   scope :into_the_room_at_asc, -> { order(into_the_room_at: :asc) }
 
@@ -172,6 +174,16 @@ class User < ApplicationRecord
 
   def user_id
     id
+  end
+
+  def strip_name
+    return if name.blank?
+    self.name = name.strip
+  end
+
+  def strip_nickname
+    return if nickname.blank?
+    self.nickname = nickname.strip
   end
 
 end

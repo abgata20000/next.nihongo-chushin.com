@@ -1,9 +1,15 @@
-h1
-  | マイページ
-= simple_form_for(current_user, url: {action: :update}) do |f|
-  p
-    = render 'colors'
-    = f.input :color, as: :hidden
-  = f.input :sound, as: :hidden
-  button(type="submit")
-    | 更新
+.ui.middle.aligned.center.aligned.grid
+  .column
+    = simple_form_for(current_user, url: {action: :update}, html: {class: 'ui large form'}) do |f|
+      .field
+        = render 'colors'
+        = f.input :color, as: :hidden, error: false
+      .field
+        = f.input :sound, as: :hidden, error: false
+
+      button.ui.fluid.huge.teal.submit.button(type="submit")
+        = I18n.t(:update)
+    - if current_user.errors.present?
+      .ui.error.message
+        - current_user.errors.full_messages.each do |error|
+          p = error

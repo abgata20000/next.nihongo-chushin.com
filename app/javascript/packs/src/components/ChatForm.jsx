@@ -22,6 +22,15 @@ export default class ChatForm extends React.Component {
         this.onChange = this.onChange.bind(this);
     }
 
+    componentDidMount() {
+        $('#comment-input').focus();
+        this.autoFitCommentsHeight();
+        this.fetchRoom();
+        this.fetchUsers();
+        this.fetchComments();
+        this.setupSubscription();
+    }
+
     onEnter(e) {
         var ENTER = 13;
         var comment = e.target.value;
@@ -35,14 +44,6 @@ export default class ChatForm extends React.Component {
         this.setState({
             inputComment: e.target.value
         })
-    }
-
-    componentDidMount() {
-        $('#comment-input').focus();
-        this.fetchRoom();
-        this.fetchUsers();
-        this.fetchComments();
-        this.setupSubscription();
     }
 
     addComment(chat) {
@@ -119,6 +120,14 @@ export default class ChatForm extends React.Component {
         });
     }
 
+    autoFitCommentsHeight() {
+        var windowHeight = $(window).height();
+        var minusHeight = 320;
+        var commentsHeight = windowHeight - minusHeight;
+        console.log(windowHeight);
+        $('#comments').height(commentsHeight);
+    }
+
     setupSubscription() {
         var _this = this;
         App.cable.subscriptions.create('ChatChannel', {
@@ -159,26 +168,31 @@ export default class ChatForm extends React.Component {
     render() {
         return (
             <div>
-                <div id="room-box">
-                    <h2 className="room-name">
-                        {this.state.roomName}
-                    </h2>
+                <div id="room-info" className="ui card">
+                    <div className="content">
+                        <div className="header">
+                            {this.state.roomName}
+                        </div>
+                    </div>
+                    <div className="content">
+                        <div className="ui small feed">
+                            {this.state.users.map((user, idx) => {
+                                return <div className="user-list-item" key={idx}
+                                            dangerouslySetInnerHTML={{__html: user}}></div>
+                            })}
+                        </div>
+                    </div>
                 </div>
-                <div id="users-box">
-                    <h2>Users</h2>
-                    {this.state.users.map((user, idx) => {
-                        return <div key={idx} dangerouslySetInnerHTML={{__html: user}}></div>
-                    })}
-                </div>
+
                 <div id="comments-box">
-                    <div id="comment-form">
+                    <div id="comment-form" className="field">
                         <input id="comment-input" type="text" onKeyDown={this.onEnter} onChange={this.onChange}
                                value={this.state.inputComment}/>
                     </div>
                     <ul id="comments">
                         {this.state.comments.map((comment, idx) => {
                             return <div className="comment-wrap" key={idx}
-                                       dangerouslySetInnerHTML={{__html: comment}}></div>
+                                        dangerouslySetInnerHTML={{__html: comment}}></div>
                         })}
                     </ul>
                 </div>

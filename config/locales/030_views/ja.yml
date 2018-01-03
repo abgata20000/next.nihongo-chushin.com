@@ -4,6 +4,8 @@ ja:
   show: 表示
   destroy: 削除
   back: 戻る
+  create: 作成
+  update: 更新
   index: 一覧
   search: 検索
   condition_setting: 検索条件設定
@@ -21,5 +23,16 @@ ja:
   logout: ログアウト
   help: ヘルプ
   invalid_user_password: アカウント名・パスワードが正しく入力されていません。
-
+  rooms: 部屋一覧
+  room: チャットルーム
+  room_exit: 退室
+  my_page: マイページ
+  username: ユーザー名
+  room_name: 部屋名
+  room_users: ユーザー一覧
+  room_info: 部屋情報
+  full_of_room: 満室
+  into_the_room: 入室
+  knock: ノック
+  drive_out: 追い出す
 

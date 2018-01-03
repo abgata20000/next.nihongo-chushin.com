@@ -1,8 +1,15 @@
-| USERS
-= link_to '[チャットルーム]', room_path(current_user.room)
-- @users.each do |user|
-  .user
-    = image_tag("/images/icon/#{user.icon}.png", class: "color #{user.color}")
-    = user.nickname_with_owner_mark
-    - if current_user.room_owner? && current_user != user
-      = link_to '[X]', room_ban_user_path(room_id: current_user.room_id, user_id: user.id), method: :delete
+= link_to I18n.t(:room), room_path(current_user.room), class: 'ui fluid huge blue submit button'
+br
+.ui.card
+  .content
+    .header
+      = "#{current_user.room.current_room_num}#{current_user.room.name}"
+  .content
+    .ui.small.feed
+      - @users.each do |user|
+        .user-item
+          = image_tag("/images/icon/#{user.icon}.png", class: "icon color_#{user.color}")
+          = user.nickname_with_owner_mark
+          - if current_user.room_owner? && current_user != user
+            = link_to I18n.t(:drive_out), room_ban_user_path(room_id: current_user.room_id, user_id: user.id), method: :delete, class: 'ui small red submit button'
+

@@ -1,5 +1,3 @@
-h1
-  | 部屋情報
-= link_to '[チャットルーム]', room_path(current_user.room)
-
+= link_to I18n.t(:room), room_path(current_user.room), class: 'ui fluid huge blue submit button'
+br
 = render 'form'

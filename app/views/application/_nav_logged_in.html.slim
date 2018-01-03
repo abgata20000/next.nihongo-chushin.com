@@ -1,0 +1,19 @@
+.ui.simple.dropdown.item.right
+  = image_tag "/images/icon/#{current_user.icon}.png", class: "user_icon color_#{current_user.color}"
+  | &nbsp;
+  = current_user.nickname
+  i.dropdown.icon
+  .menu
+    = link_to I18n.t(:my_page) , my_pages_path, class: 'item'
+    = link_to I18n.t(:rooms), rooms_path, class: 'item'
+    - if current_user.room.present?
+      .divider
+      = link_to I18n.t(:room), room_path(current_user.room), class: 'item'
+      = link_to I18n.t(:room_users), room_users_path(current_user.room), class: 'item'
+      - if current_user.room_owner?
+        = link_to I18n.t(:room_info), edit_room_path(current_user.room), class: 'item'
+      .divider
+      = link_to I18n.t(:room_exit), leave_room_path, method: :delete, class: 'item'
+    - else
+      .divider
+      = link_to I18n.t(:logout), sessions_path, method: :delete, class: 'item'

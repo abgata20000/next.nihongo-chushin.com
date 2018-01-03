@@ -67,6 +67,7 @@ gem 'sidekiq-statistic'
 gem 'sidekiq-limit_fetch'
 gem 'redis-namespace'
 gem 'redis-rails'
+gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass.git'
 
 
 group :test, :development do

@@ -1,7 +1,8 @@
 class RoomsController < ApplicationController
-  before_action :logged_in_check
+  before_action :logged_in_check, except: %w(index)
   before_action :find_room, only: %w(show edit update users ban_user join)
   before_action :set_room, only: %w(new create)
+  before_action :check_exists_username, only: %w(join)
   before_action :check_room_max, only: %w(join)
   before_action :set_room_id_to_current_user, only: %w(join)
   before_action :check_current_room, only: %w(show edit update new create ban_user users)
@@ -106,5 +107,10 @@ class RoomsController < ApplicationController
   def check_room_owner
     return if current_user.room_owner?
     redirect_to room_path(current_user.room), notice: '管理者権限がありません'
+  end
+
+  def check_exists_username
+    return unless @room.exists_username?(current_user)
+    redirect_to rooms_path, notice: '同じ部屋で同じ名前は利用できません'
   end
 end

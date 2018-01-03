@@ -1,7 +1,17 @@
-= simple_form_for(@room) do |f|
-  p
-    = f.input :name
-  p
-    = f.input :num
-  button(type="submit")
-    | 登録
+.ui.middle.aligned.center.aligned.grid
+  .column
+    = simple_form_for(@room, html: {class: 'ui large form'}) do |f|
+      .field
+        = f.input :name, label: false, placeholder: I18n.t(:room_name), error: false
+      .field
+        = f.input :num, label: false, error: false
+
+      button.ui.fluid.huge.teal.submit.button(type="submit")
+        - if @room.new_record?
+          = I18n.t(:create)
+        - else
+          = I18n.t(:update)
+    - if @room.errors.present?
+      .ui.error.message
+        - @room.errors.full_messages.each do |error|
+          p = error

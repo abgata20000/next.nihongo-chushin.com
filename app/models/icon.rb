@@ -4,8 +4,8 @@ class Icon < ActiveHash::Base
   field :name
 
   create(id: 0, name: "default")
-  59.times do |i|
-    id = i + 1
+  58.times do |i|
+    id = i + 2
     create(id: id, name: "icon_#{id}")
   end
 

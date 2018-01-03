@@ -6,7 +6,12 @@ class MyPagesController < ApplicationController
 
   def update
     if current_user.update(controller_params)
-      redirect_to room_path(current_user.room)
+      if current_user.room
+        redirect_to room_path(current_user.room)
+      else
+        redirect_to rooms_path
+      end
+
     else
       render :show
     end

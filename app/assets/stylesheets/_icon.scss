@@ -1,13 +1,17 @@
 .icon {
-  border: solid 2px #333;
-  padding: 5px;
+  border: solid 3px #333;
   margin: 3px;
   cursor: pointer;
   width: 64px;
   height: 64px;
   display: inline-block;
 
+  img {
+    width: 64px;
+    height: 64px;
+  }
+
   &.selected {
-    border: solid 5px #999;
+    border: solid 3px red;
   }
 }

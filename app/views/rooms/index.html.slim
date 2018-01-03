@@ -1,12 +1,8 @@
-h1
-  | Room
-  = link_to '[作成]', new_room_path
+- if current_user.room
+  = link_to I18n.t(:room), room_path(current_user.room), class: 'ui fluid huge blue submit button'
+- else
+  = link_to I18n.t(:new_for, name: I18n.t(:room)), new_room_path, class: 'ui fluid huge blue submit button'
+
 
 - @rooms.each do |room|
-  p
-    = "#{room.name}(#{room.users.size}/#{room.num})"
-    - if current_user.room.blank?
-      - if room.max?
-        | [満室]
-      - else
-        = link_to '[入室]', room_join_path(room)
+  = render 'room', room: room

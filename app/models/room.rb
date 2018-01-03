@@ -106,6 +106,18 @@ class Room < ApplicationRecord
     echo_system_comment(message, is_broadcast_to_user: true, is_broadcast_to_room: true)
   end
 
+  def exists_username?(my_user)
+    nicknames = users.pluck(:nickname).map do |name|
+      name.strip.downcase
+    end
+    nicknames.include?(my_user.nickname.downcase)
+  end
+
+  def exists_color?(my_user)
+    colors = users.pluck(:color)
+    colors.include?(my_user.color)
+  end
+
   private
 
   def room_id
