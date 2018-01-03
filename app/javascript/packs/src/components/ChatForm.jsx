@@ -124,7 +124,6 @@ export default class ChatForm extends React.Component {
         var windowHeight = $(window).height();
         var minusHeight = 320;
         var commentsHeight = windowHeight - minusHeight;
-        console.log(windowHeight);
         $('#comments').height(commentsHeight);
     }
 
@@ -150,11 +149,11 @@ export default class ChatForm extends React.Component {
                 }
             },
             connected() {
-                console.log('connected');
+                // console.log('connected');
                 this.connect();
             },
             disconnected() {
-                console.log('disconnected');
+                // console.log('disconnected');
             },
             connect() {
                 this.perform('set_connected', {connect: true});
