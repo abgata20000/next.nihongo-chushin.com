@@ -17,7 +17,7 @@ module ExpireDataRemovable
     end
 
     def expire_day
-      30
+      ENV['EXPIRE_DATA_REMOVE_DAY'].present? ? ENV['EXPIRE_DATA_REMOVE_DAY'].to_i : 30
     end
   end
 end
