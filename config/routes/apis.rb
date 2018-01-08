@@ -3,4 +3,5 @@ namespace :apis do
   resource :rooms, only: %w(show) do
     get 'users'
   end
+  resource :my_pages, only: %w(show)
 end
