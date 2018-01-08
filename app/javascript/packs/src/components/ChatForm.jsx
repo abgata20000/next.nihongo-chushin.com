@@ -1,14 +1,18 @@
-import React from 'react'
-var request = require('superagent')
+import React from 'react';
+var request = require('superagent');
+var howler = require('howler');
 
 export default class ChatForm extends React.Component {
     chats_url = '/apis/chats';
     room_url = '/apis/rooms';
     users_url = '/apis/rooms/users';
+    my_page_url = '/apis/my_pages';
     commentNum = 30;
     fetching = false;
     next_fetch = false;
     lastChatId = 0;
+    sound;
+    my_page_info;
 
     constructor(props) {
         super(props);
@@ -24,6 +28,7 @@ export default class ChatForm extends React.Component {
 
     componentDidMount() {
         $('#comment-input').focus();
+        this.soundSetting();
         this.autoFitCommentsHeight();
         this.fetchRoom();
         this.fetchUsers();
@@ -44,6 +49,31 @@ export default class ChatForm extends React.Component {
         this.setState({
             inputComment: e.target.value
         })
+    }
+
+    soundLoad() {
+        if (this.my_page_info.sound === 'silent') return;
+        var sound_path = '/sound/' + this.my_page_info.sound + '.mp3';
+        this.sound = new Howl({
+            src: [sound_path]
+        });
+        this.sound.once('load', function () {
+        });
+    }
+
+    soundSetting() {
+        var _this = this;
+        request
+            .get(this.my_page_url)
+            .end(function (err, res) {
+                _this.my_page_info = res.body;
+                _this.soundLoad();
+            });
+    }
+
+    playSound() {
+        if (this.my_page_info.sound === 'silent') return;
+        this.sound.play();
     }
 
     addComment(chat) {
@@ -71,6 +101,9 @@ export default class ChatForm extends React.Component {
                 chats.forEach(function (chat) {
                     _this.addComment(chat);
                 });
+                if (chats.length > 0) {
+                    _this.playSound();
+                }
                 _this.fetching = false;
                 if (_this.next_fetch) {
                     _this.fetchComments();
@@ -122,8 +155,10 @@ export default class ChatForm extends React.Component {
 
     autoFitCommentsHeight() {
         var windowHeight = $(window).height();
+        var minCommentsHeight = 300;
         var minusHeight = 320;
         var commentsHeight = windowHeight - minusHeight;
+        if (commentsHeight < minCommentsHeight) commentsHeight = minCommentsHeight;
         $('#comments').height(commentsHeight);
     }
 

@@ -41,7 +41,7 @@ class User < ApplicationRecord
   include EchoSystemCommentable
   DEFAULT_ICON = 'default'
   DEFAULT_COLOR = 'black'
-  DEFAULT_SOUND = 'default'
+  DEFAULT_SOUND = 'beep_1'
   DEFAULT_LANG = 'ja'
 
   belongs_to :room, optional: true
@@ -164,6 +164,17 @@ class User < ApplicationRecord
 
   def render_view
     ApplicationController.renderer.render(partial: 'user', locals: {user: self})
+  end
+
+  def show_my_page_attributes
+    {
+        id: id,
+        name: name,
+        color: color,
+        sound: sound,
+        icon: icon,
+        is_mobile: is_mobile
+    }
   end
 
   private
