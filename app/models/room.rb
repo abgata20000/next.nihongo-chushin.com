@@ -114,7 +114,7 @@ class Room < ApplicationRecord
     nicknames.include?(my_user.nickname.downcase)
   end
 
-  def exists_color?(my_user)
+  def already_used_color?(my_user)
     used_colors.include?(my_user.color)
   end
 
@@ -122,11 +122,11 @@ class Room < ApplicationRecord
     enabled_colors.sample
   end
 
-  private
-
   def enabled_colors
     Color.to_array - used_colors
   end
+
+  private
 
   def used_colors
     users.pluck(:color)
