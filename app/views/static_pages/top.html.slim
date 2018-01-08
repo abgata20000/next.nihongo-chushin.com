@@ -1,0 +1,13 @@
+.rooms
+  = link_to I18n.t(:rooms), rooms_path, class: 'ui fluid huge blue submit button'
+
+  #room-info.ui.card
+    .content
+      .header
+        = @room.title_with_nums
+
+  ul#comments
+    - @chats.each do |chat|
+      li
+        .comment-wrap
+          = render 'comment', chat: chat
