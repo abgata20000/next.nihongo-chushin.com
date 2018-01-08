@@ -5,17 +5,13 @@ module SessionsHelper
 
     if @current_user.blank?
       @current_user = User.create!
-      user_token = @current_user.token
+      cookies.signed[:user_token] = @current_user.token
     end
     @current_user
   end
 
   def user_token
     cookies.signed[:user_token]
-  end
-
-  def user_token=(token)
-    cookies.signed[:user_token] = token
   end
 
   def current_user=(user)
