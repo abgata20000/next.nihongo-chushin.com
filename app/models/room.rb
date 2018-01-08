@@ -115,11 +115,22 @@ class Room < ApplicationRecord
   end
 
   def exists_color?(my_user)
-    colors = users.pluck(:color)
-    colors.include?(my_user.color)
+    used_colors.include?(my_user.color)
+  end
+
+  def random_color
+    enabled_colors.sample
   end
 
   private
+
+  def enabled_colors
+    Color.to_array - used_colors
+  end
+
+  def used_colors
+    users.pluck(:color)
+  end
 
   def room_id
     id

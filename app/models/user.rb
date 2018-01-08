@@ -120,7 +120,7 @@ class User < ApplicationRecord
   end
 
   def into_the_room(room)
-    update(room: room, into_the_room_at: now, last_commented_at: now, last_connected_at: now)
+    update(room: room, color: room.random_color, into_the_room_at: now, last_commented_at: now, last_connected_at: now)
   end
 
   def commented
