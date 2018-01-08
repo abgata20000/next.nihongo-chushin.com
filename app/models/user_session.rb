@@ -8,7 +8,7 @@ class UserSession < ActiveType::Object
 
   default_value_for :color, 'black'
   default_value_for :icon, 'default'
-  default_value_for :sound, 'default'
+  default_value_for :sound, 'beep_1'
 
   validates :user, presence: true
   validates :nickname, presence: true, length: {in: 2..10}
