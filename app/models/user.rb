@@ -84,6 +84,8 @@ class User < ApplicationRecord
   validates :language, presence: true
   validates :role, presence: true
 
+  validate :check_already_used_color
+
   after_initialize :generate_token
   before_validation :strip_name
   before_validation :strip_nickname
@@ -120,7 +122,7 @@ class User < ApplicationRecord
   end
 
   def into_the_room(room)
-    update(room: room, into_the_room_at: now, last_commented_at: now, last_connected_at: now)
+    update(room: room, color: room.random_color, into_the_room_at: now, last_commented_at: now, last_connected_at: now)
   end
 
   def commented
@@ -177,7 +179,25 @@ class User < ApplicationRecord
     }
   end
 
+  def enabled_colors
+    return Color.all unless room
+    colors = room.enabled_colors + [color]
+    Color.where(name: colors)
+  end
+
   private
+
+  def check_already_used_color
+    return true unless color_changed?
+    return true if color.nil?
+    return true if room.nil?
+    if room.already_used_color?(self)
+      errors.add(:color, :already_used_color)
+      self.color = color_was
+      return false
+    end
+    true
+  end
 
   def generate_token
     self.token = SecureRandom.hex(32) if token.blank?

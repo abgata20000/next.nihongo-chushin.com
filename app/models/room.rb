@@ -45,7 +45,7 @@ class Room < ApplicationRecord
   default_value_for :is_visible, true
   default_value_for :can_knock, false
   default_value_for :is_fixed, false
-  default_value_for :show_comment_count, 100
+  default_value_for :show_comment_count, 30
 
   validates :name, presence: true, length: {in: 2..20}
   validates :num, presence: true, numericality: {greater_than_or_equal_to: 2, less_than_or_equal_to: 10}
@@ -114,12 +114,23 @@ class Room < ApplicationRecord
     nicknames.include?(my_user.nickname.downcase)
   end
 
-  def exists_color?(my_user)
-    colors = users.pluck(:color)
-    colors.include?(my_user.color)
+  def already_used_color?(my_user)
+    used_colors.include?(my_user.color)
+  end
+
+  def random_color
+    enabled_colors.sample
+  end
+
+  def enabled_colors
+    Color.to_array - used_colors
   end
 
   private
+
+  def used_colors
+    users.pluck(:color)
+  end
 
   def room_id
     id

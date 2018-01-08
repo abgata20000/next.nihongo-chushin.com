@@ -35,8 +35,8 @@ class Chat < ApplicationRecord
                     .where(room: user.room)
                     .where('chats.id > ?', last_chat_id)
                     .limit(user.room.show_comment_count)
-                    .order(updated_at: :asc)
-        chats.map do |chat|
+                    .order(updated_at: :desc)
+        chats.reverse.map do |chat|
           chat.show_attributes
         end
       end
