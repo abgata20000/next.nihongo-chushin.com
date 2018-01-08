@@ -6,3 +6,5 @@ onPageLoad 'sessions', ->
     icon = $this.data('icon')
     $('#user_session_icon').val(icon)
 
+  window.showSecretIcons = () ->
+    $('.secret').css('display', 'inline-block')

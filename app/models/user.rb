@@ -76,7 +76,7 @@ class User < ApplicationRecord
     Time.zone.now
   end
 
-  validates :token, allow_nil: true, uniqueness: true
+  # validates :token, allow_nil: true, uniqueness: true
   validates :name, allow_nil: true, uniqueness: true
   validates :icon, presence: true
   validates :color, presence: true

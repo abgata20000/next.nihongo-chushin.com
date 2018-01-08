@@ -27,8 +27,11 @@ class SessionsController < ApplicationController
   end
 
   def user_session_params
-    tmp = params.fetch(:user_session, {}).permit(:nickname, :icon, :color, :sound)
+    tmp = params.fetch(:user_session, {}).permit(:nickname, :icon, :color)
     tmp[:user] = current_user
+    if Icon.special_icon?(tmp[:icon])
+      tmp[:icon] = 'default'
+    end
     tmp
   end
 

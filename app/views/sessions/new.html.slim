@@ -6,11 +6,13 @@
       .field
         = render 'icons'
         = f.input :icon, as: :hidden, error: false
+      .field
+        = f.input :sound, as: :hidden, error: false
 
       button.ui.fluid.huge.teal.submit.button(type="submit")
         = I18n.t(:login)
+      .secret_show_block(onClick="showSecretIcons()")
     - if @user_session.errors.present?
-      = @user_session.errors
       .ui.error.message
         - @user_session.errors.full_messages.each do |error|
           p = error
