@@ -7,6 +7,7 @@ class MyPagesController < ApplicationController
   def update
     if current_user.update(controller_params)
       if current_user.room
+        current_user.broadcast_to_room_users
         redirect_to room_path(current_user.room)
       else
         redirect_to rooms_path

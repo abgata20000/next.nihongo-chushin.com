@@ -33,6 +33,8 @@ class Chat < ApplicationRecord
 
   before_validation :set_user_attributes
 
+  scope :enabled, -> { where(deleted_at: nil) }
+
   private
 
   def set_user_attributes

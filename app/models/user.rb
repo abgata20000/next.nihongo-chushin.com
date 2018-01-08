@@ -185,6 +185,11 @@ class User < ApplicationRecord
     Color.where(name: colors)
   end
 
+  def broadcast_to_room_users
+    user_broadcast = UserBroadcast.new(user: self)
+    user_broadcast.broadcast
+  end
+
   private
 
   def check_already_used_color
