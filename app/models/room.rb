@@ -58,7 +58,7 @@ class Room < ApplicationRecord
 
   class << self
     def active_rooms
-      includes(:users).enabled.newest.limit(LIMIT_NUM)
+      includes(:users).enabled.order(is_fixed: :desc).newest.limit(LIMIT_NUM)
     end
   end
 
@@ -96,6 +96,7 @@ class Room < ApplicationRecord
   end
 
   def move_owner_first_user
+    return if is_fixed
     return if user && user.room_id == id
     update(user: first_user)
     move_owner_system_comment
