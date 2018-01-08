@@ -45,7 +45,7 @@ class Room < ApplicationRecord
   default_value_for :is_visible, true
   default_value_for :can_knock, false
   default_value_for :is_fixed, false
-  default_value_for :show_comment_count, 100
+  default_value_for :show_comment_count, 30
 
   validates :name, presence: true, length: {in: 2..20}
   validates :num, presence: true, numericality: {greater_than_or_equal_to: 2, less_than_or_equal_to: 10}
