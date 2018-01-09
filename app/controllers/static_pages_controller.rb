@@ -10,10 +10,7 @@ class StaticPagesController < ApplicationController
 
   def set_top_variables
     @room = Room.enabled.where(is_fixed: true, is_public: true).first
-    if @room
-      @chats = @room.chats.enabled.where(system_message: false).order(updated_at: :desc).limit(SHOW_COMMENT_NUM)
-    else
-      redirect_to rooms_path
-    end
+    @chats = @room.chats.enabled.where(system_message: false).order(updated_at: :desc).limit(SHOW_COMMENT_NUM) if @room
+    redirect_to rooms_path if @chats.blank?
   end
 end
