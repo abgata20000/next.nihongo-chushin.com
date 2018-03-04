@@ -38,7 +38,7 @@ export default class ChatForm extends React.Component {
 
     onEnter(e) {
         var ENTER = 13;
-        var comment = e.target.value;
+        var comment = e.target.value.trim();
         if (e.keyCode == ENTER && comment != '') {
             this.resetInputComment();
             this.postComment(comment);
@@ -46,8 +46,9 @@ export default class ChatForm extends React.Component {
     }
 
     onChange(e) {
+        var comment = e.target.value.trim();
         this.setState({
-            inputComment: e.target.value
+            inputComment: comment
         })
     }
 
@@ -220,8 +221,8 @@ export default class ChatForm extends React.Component {
 
                 <div id="comments-box">
                     <div id="comment-form" className="field">
-                        <input id="comment-input" type="text" onKeyDown={this.onEnter} onChange={this.onChange}
-                               value={this.state.inputComment}/>
+
+                        <textarea id="comment-input" onKeyDown={this.onEnter} onChange={this.onChange} value={this.state.inputComment}></textarea>
                     </div>
                     <ul id="comments">
                         {this.state.comments.map((comment, idx) => {
