@@ -57,9 +57,19 @@ class RoomsController < ApplicationController
   end
 
   def ban_user
+    ban_or_drive_out_user(true)
+  end
+
+  def drive_out_user
+    ban_or_drive_out_user(false)
+  end
+
+  def owner_transfer
     user_id = params[:user_id]
-    user = User.find(user_id)
-    user.ban!
+    to_user = User.find(user_id)
+    if current_user.room_owner?
+      current_user.room.owner_transfer(to_user)
+    end
     redirect_to room_path(current_user.room)
   rescue => _e
     redirect_to room_path(current_user.room)
@@ -112,5 +122,18 @@ class RoomsController < ApplicationController
   def check_exists_username
     return unless @room.exists_username?(current_user)
     redirect_to rooms_path, notice: '同じ部屋で同じ名前は利用できません'
+  end
+
+  def ban_or_drive_out_user(force_ban = false)
+    user_id = params[:user_id]
+    user = User.find(user_id)
+    if force_ban
+      user.ban!
+    else
+      user.drive_out!
+    end
+    redirect_to room_path(current_user.room)
+  rescue => _e
+    redirect_to room_path(current_user.room)
   end
 end

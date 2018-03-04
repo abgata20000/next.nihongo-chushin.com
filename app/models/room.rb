@@ -91,15 +91,20 @@ class Room < ApplicationRecord
     deleted_at.nil?
   end
 
+  def owner_transfer(to_user)
+    return if is_fixed
+    return unless to_user
+    return unless to_user.room_id == id
+    update(user: to_user)
+    move_owner_system_comment
+  end
+
   def first_user
     users.into_the_room_at_asc.first
   end
 
   def move_owner_first_user
-    return if is_fixed
-    return if user && user.room_id == id
-    update(user: first_user)
-    move_owner_system_comment
+    owner_transfer(first_user)
   end
 
   def move_owner_system_comment

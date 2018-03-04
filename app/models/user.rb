@@ -111,8 +111,13 @@ class User < ApplicationRecord
     echo_system_comment(message, is_broadcast_to_user: true, is_broadcast_to_room: true)
   end
 
-  def ban_the_room_system_comment
+  def drive_out_the_room_system_comment
     message = "#{nickname}さんが退室させられました。"
+    echo_system_comment(message, is_broadcast_to_user: true, is_broadcast_to_room: true)
+  end
+
+  def ban_the_room_system_comment
+    message = "#{nickname}さんが入室禁止にされました。"
     echo_system_comment(message, is_broadcast_to_user: true, is_broadcast_to_room: true)
   end
 
@@ -135,6 +140,13 @@ class User < ApplicationRecord
 
   def ban!
     ban_the_room_system_comment
+    add_banned_room
+    leave_room
+    broadcast_disconnect
+  end
+
+  def drive_out!
+    drive_out_the_room_system_comment
     leave_room
     broadcast_disconnect
   end
@@ -190,6 +202,10 @@ class User < ApplicationRecord
     user_broadcast.broadcast
   end
 
+  def broadcast_disconnect
+    ActionCable.server.broadcast user_label, {is_disconnect: true}
+  end
+
   private
 
   def check_already_used_color
@@ -212,6 +228,10 @@ class User < ApplicationRecord
     id
   end
 
+  def user_label
+    "user:#{user_id}"
+  end
+
   def strip_name
     return if name.blank?
     self.name = name.strip
@@ -220,6 +240,11 @@ class User < ApplicationRecord
   def strip_nickname
     return if nickname.blank?
     self.nickname = nickname.strip
+  end
+
+  # TODO: 未実装
+  def add_banned_room
+
   end
 
 end

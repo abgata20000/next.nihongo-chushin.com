@@ -14,11 +14,6 @@ class Chat < ApplicationRecord
       after_save :broadcast
     end
 
-
-    def broadcast_disconnect
-      ActionCable.server.broadcast user_label, {is_disconnect: true}
-    end
-
     private
 
     def room_label
