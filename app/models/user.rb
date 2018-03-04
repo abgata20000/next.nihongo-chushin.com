@@ -190,6 +190,10 @@ class User < ApplicationRecord
     user_broadcast.broadcast
   end
 
+  def broadcast_disconnect
+    ActionCable.server.broadcast user_label, {is_disconnect: true}
+  end
+
   private
 
   def check_already_used_color
@@ -210,6 +214,10 @@ class User < ApplicationRecord
 
   def user_id
     id
+  end
+
+  def user_label
+    "user:#{user_id}"
   end
 
   def strip_name

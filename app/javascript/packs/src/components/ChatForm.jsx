@@ -181,7 +181,7 @@ export default class ChatForm extends React.Component {
                 }
 
                 if (data.is_disconnect) {
-                    window.reload();
+                    window.location.reload();
                 }
             },
             connected() {
