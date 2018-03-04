@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   resources :rooms, only: %w(new create show index edit update) do
     get 'join'
     get 'users'
+    put 'owner_transfer'
     delete 'ban_user'
+    delete 'drive_out_user'
   end
   resources :chats, only: %w(create)
   resource :sessions, only: %w(create destroy)

@@ -11,5 +11,7 @@ br
           = image_tag("/images/icon/#{user.icon}.png", class: "icon color_#{user.color}")
           = user.nickname_with_owner_mark
           - if current_user.room_owner? && current_user != user
-            = link_to I18n.t(:drive_out), room_ban_user_path(room_id: current_user.room_id, user_id: user.id), method: :delete, class: 'ui small red submit button'
+            = link_to I18n.t(:drive_out), room_drive_out_user_path(room_id: current_user.room_id, user_id: user.id), method: :delete, class: 'ui small yellow submit button'
+            = link_to I18n.t(:ban_user), room_ban_user_path(room_id: current_user.room_id, user_id: user.id), method: :delete, class: 'ui small red submit button'
+            = link_to I18n.t(:owner_transfer), room_owner_transfer_path(room_id: current_user.room_id, user_id: user.id), method: :put, class: 'ui small blue submit button'
 
