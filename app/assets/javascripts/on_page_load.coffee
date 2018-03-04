@@ -1,7 +1,7 @@
 # ネームスペースに対応した個別jsファイルローダー
 @onPageLoad = (classes, callback) ->
-  $(document).on 'turbolinks:load', ->
-  # $(document).ready ->
+  # $(document).on 'turbolinks:load', ->
+  $(document).ready ->
     conditions = regularize(classes)
     unless conditions
       console.error '[onPageLoad] Unexpected arguments!'
