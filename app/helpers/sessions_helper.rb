@@ -2,11 +2,12 @@ module SessionsHelper
   def current_user
     return @current_user if @current_user
     @current_user = User.find_by(token: user_token)
-
-    if @current_user.blank?
-      @current_user = User.create!
-      cookies.signed[:user_token] = @current_user.token
-    end
+    @current_user = User.create! if @current_user.blank?
+    # セッションの有効期限を更新(永続的に利用させたい)
+    cookies.signed[:user_token] = {
+        value: @current_user.token,
+        expires: 10.years.from_now
+    }
     @current_user
   end
 
