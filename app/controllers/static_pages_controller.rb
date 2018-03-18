@@ -5,6 +5,10 @@ class StaticPagesController < ApplicationController
 
   end
 
+  def redux_sample
+
+  end
+
 
   private
 

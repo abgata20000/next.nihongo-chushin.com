@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/my-sidekiq'
 
   root to: 'static_pages#top'
+  get 'static_pages/redux_sample'
   resource :my_pages, only: %w(show update)
   resource :room, only: %w() do
     delete 'leave'
