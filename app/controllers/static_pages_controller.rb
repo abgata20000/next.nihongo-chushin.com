@@ -9,6 +9,10 @@ class StaticPagesController < ApplicationController
 
   end
 
+  def sample
+
+  end
+
 
   private
 

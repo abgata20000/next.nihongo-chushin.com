@@ -168,7 +168,7 @@ export default class ChatForm extends React.Component {
 
     setupSubscription() {
         var _this = this;
-        App.cable.subscriptions.create('ChatChannel', {
+        Cable.cable.subscriptions.create('ChatChannel', {
             received(data) {
                 if (data.chat_id) {
                     _this.next_fetch = true;
