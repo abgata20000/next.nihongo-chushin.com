@@ -9,11 +9,11 @@ const AddTodo = ({dispatch}) => {
         <div>
             <form
                 onSubmit={e => {
-                    e.preventDefault()
+                    e.preventDefault();
                     if (!input.value.trim()) {
                         return
                     }
-                    dispatch(addTodo(input.value))
+                    dispatch(addTodo(input.value));
                     input.value = ''
                 }}
             >
