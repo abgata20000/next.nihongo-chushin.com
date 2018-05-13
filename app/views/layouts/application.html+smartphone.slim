@@ -1,0 +1,9 @@
+doctype html
+html
+  = render 'head'
+body(class="#{controller_classes}")
+  = render 'header_for_sp'
+  .ui.main.text.container.sp
+    = render 'notice'
+    = yield
+  = render 'footer'
