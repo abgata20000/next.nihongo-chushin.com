@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   before_action :logged_in_check, except: %w(index)
   before_action :find_room, only: %w(show edit update users ban_user join)
+  before_action :check_password, only: %w(join)
   before_action :set_room, only: %w(new create)
   before_action :check_exists_username, only: %w(join)
   before_action :check_room_max, only: %w(join)
@@ -81,6 +82,12 @@ class RoomsController < ApplicationController
     params[:room_id] || params[:id]
   end
 
+  def check_password
+    return if @room.password.blank?
+    return if @room.password == params[:password]
+    redirect_to new_room_room_password_path(room_id: @room.id)
+  end
+
   def set_room_id_to_current_user
     return if current_user.room.present?
     current_user.into_the_room(@room)
@@ -100,7 +107,7 @@ class RoomsController < ApplicationController
   end
 
   def controller_params
-    params.fetch(:room, {}).permit(:name, :num)
+    params.fetch(:room, {}).permit(:name, :num, :password)
   end
 
   def check_current_room
