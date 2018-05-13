@@ -37,8 +37,8 @@ class Room < ApplicationRecord
   has_many :users
   has_many :chats
 
-  default_value_for :connection_disconnected_time, 3000
-  default_value_for :comment_disconnected_time, 6000
+  default_value_for :connection_disconnected_time, 3600
+  default_value_for :comment_disconnected_time, 3600
   default_value_for :num, 5
   default_value_for :language, 'ja'
   default_value_for :is_public, false
