@@ -2,7 +2,11 @@
   .content
     .header
       = "#{room.current_room_num}#{room.name}"
+
   .content
+    - if room.password.present?
+      a.ui.orange.right.ribbon.label
+        | password
     .ui.small.feed
       - room.users.each do |user|
         .user-list-item
@@ -15,4 +19,3 @@
           = I18n.t(:full_of_room)
       - else
         = link_to I18n.t(:into_the_room), room_join_path(room), class: 'ui button fluid huge submit teal'
-

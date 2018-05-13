@@ -21,7 +21,9 @@ Rails.application.routes.draw do
     put 'owner_transfer'
     delete 'ban_user'
     delete 'drive_out_user'
+    resources :room_passwords, only: %w(new create)
   end
+
   resources :chats, only: %w(create)
   resource :sessions, only: %w(create destroy)
   get 'signin', to: 'sessions#new'

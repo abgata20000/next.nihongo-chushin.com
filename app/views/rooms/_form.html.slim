@@ -5,6 +5,9 @@
         = f.input :name, label: false, placeholder: I18n.t(:room_name), error: false
       .field
         = f.input :num, label: false, error: false
+      - if @room.new_record?
+        .field
+          = f.input :password, label: false, error: false, placeholder: 'input password if you want'
 
       button.ui.fluid.huge.teal.submit.button(type="submit")
         - if @room.new_record?

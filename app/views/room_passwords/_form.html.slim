@@ -1,0 +1,12 @@
+.ui.middle.aligned.center.aligned.grid
+  .column
+    = simple_form_for(@room_password, url: url_for(action: :create), html: {class: 'ui large form'}) do |f|
+      .field
+        = f.input :password, label: false, error: false, placeholder: 'password'
+
+      button.ui.fluid.huge.teal.submit.button(type="submit")
+        | 入室する
+    - if @room_password.errors.present?
+      .ui.error.message
+        - @room_password.errors.full_messages.each do |error|
+          p = error

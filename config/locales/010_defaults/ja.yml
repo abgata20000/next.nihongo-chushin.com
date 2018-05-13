@@ -8,6 +8,7 @@ ja:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
         already_used_color: 既に利用されている色です。
+        password_is_incorrect: パスワードが違います。
   date:
     abbr_day_names:
     - 日
