@@ -1,6 +1,6 @@
-header.ui.fixed.inverted.menu
+header.ui.inverted.menu
   .ui.container
-    = link_to root_path
+    = link_to for_logo_path
       = image_tag '/images/logo/logo.png'
     - if logged_in?
       = render 'nav_logged_in'

@@ -41,7 +41,7 @@ class User < ApplicationRecord
   include EchoSystemCommentable
   DEFAULT_ICON = 'default'
   DEFAULT_COLOR = 'black'
-  DEFAULT_SOUND = 'beep_1'
+  DEFAULT_SOUND = 'silent'
   DEFAULT_LANG = 'ja'
 
   belongs_to :room, optional: true

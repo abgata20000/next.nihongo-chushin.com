@@ -39,4 +39,12 @@ module ApplicationHelper
     end
     text.html_safe
   end
+
+  def for_logo_path
+    if current_user.room.present?
+      room_path(current_user.room)
+    else
+      root_path
+    end
+  end
 end

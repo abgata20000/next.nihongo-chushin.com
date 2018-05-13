@@ -4,8 +4,6 @@ var howler = require('howler');
 
 export default class ChatForm extends React.Component {
     chats_url = '/apis/chats';
-    room_url = '/apis/rooms';
-    users_url = '/apis/rooms/users';
     my_page_url = '/apis/my_pages';
     commentNum = 30;
     fetching = false;
@@ -30,8 +28,6 @@ export default class ChatForm extends React.Component {
         $('#comment-input').focus();
         this.soundSetting();
         this.autoFitCommentsHeight();
-        this.fetchRoom();
-        this.fetchUsers();
         this.fetchComments();
         this.setupSubscription();
     }
@@ -115,34 +111,6 @@ export default class ChatForm extends React.Component {
             });
     }
 
-    fetchRoom() {
-        var _this = this;
-        request
-            .get(this.room_url)
-            .end(function (err, res) {
-                var room = res.body;
-                if (room) {
-                    _this.setState({
-                        roomName: room.room_name
-                    })
-                }
-            });
-    }
-
-    fetchUsers() {
-        var _this = this;
-        request
-            .get(this.users_url)
-            .end(function (err, res) {
-                var users = res.body;
-                if (users) {
-                    _this.setState({
-                        users: users
-                    });
-                }
-            });
-    }
-
     postComment(comment) {
         request
             .post(this.chats_url)
@@ -159,10 +127,11 @@ export default class ChatForm extends React.Component {
 
     autoFitCommentsHeight() {
         var windowHeight = $(window).height();
-        var minCommentsHeight = 300;
-        var minusHeight = 380;
+        var minCommentsHeight = 320;
+        var minusHeight = 130;
         var commentsHeight = windowHeight - minusHeight;
         if (commentsHeight < minCommentsHeight) commentsHeight = minCommentsHeight;
+        console.log(windowHeight, commentsHeight);
         $('#comments').height(commentsHeight);
     }
 
@@ -174,15 +143,6 @@ export default class ChatForm extends React.Component {
                     _this.next_fetch = true;
                     this.fetchComments();
                 }
-
-                if (data.is_user) {
-                    this.fetchUsers();
-                }
-
-                if (data.is_room) {
-                    this.fetchRoom();
-                }
-
                 if (data.is_disconnect) {
                     window.location.reload();
                 }
@@ -197,43 +157,25 @@ export default class ChatForm extends React.Component {
             connect() {
                 this.perform('set_connected', {connect: true});
             },
-            fetchComments: this.fetchComments.bind(this),
-            fetchUsers: this.fetchUsers.bind(this),
-            fetchRoom: this.fetchRoom.bind(this)
+            fetchComments: this.fetchComments.bind(this)
         });
     }
 
     render() {
         return (
-            <div>
-                <div id="room-info" className="ui card">
-                    <div className="content">
-                        <div className="header">
-                            {this.state.roomName}
-                        </div>
-                    </div>
-                    <div className="content">
-                        <div className="ui small feed">
-                            {this.state.users.map((user, idx) => {
-                                return <div className="user-list-item" key={idx}
-                                            dangerouslySetInnerHTML={{__html: user}}></div>
-                            })}
-                        </div>
-                    </div>
-                </div>
-
+            <div id="sp-chat-contents">
                 <div id="comments-box">
-                    <div id="comment-form" className="field">
-
-                        <textarea id="comment-input" onKeyDown={this.onEnter} onChange={this.onChange}
-                                  value={this.state.inputComment}></textarea>
-                    </div>
                     <ul id="comments">
                         {this.state.comments.map((comment, idx) => {
                             return <div className="comment-wrap" key={idx}
                                         dangerouslySetInnerHTML={{__html: comment}}></div>
                         })}
                     </ul>
+                </div>
+                <div id="comment-form" className="field">
+
+                        <textarea id="comment-input" onKeyDown={this.onEnter} onChange={this.onChange}
+                                  value={this.state.inputComment}></textarea>
                 </div>
             </div>
         )

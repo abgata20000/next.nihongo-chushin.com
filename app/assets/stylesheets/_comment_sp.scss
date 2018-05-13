@@ -1,0 +1,142 @@
+#sp-chat-contents {
+  #comments {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    margin-top: 10px;
+    padding: 8px 5px 30px 5px;
+    background: #272722;
+
+    .comment-wrap {
+      padding: 0 10px;
+      position: relative;
+      margin: 5px 0;
+      min-height: 50px;
+      .left-content {
+        width: 60px;
+        margin-right: -60px;
+        float: left;
+        padding: 0;
+        .avator {
+          img {
+            width: 32px;
+            height: 32px;
+          }
+          display: block;
+          width:  32px;
+          height: 32px;
+          text-align: center;
+          margin-left: 15px;
+          border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border: solid 1px #d2d2d2;
+          margin-bottom: 0;
+          cursor: pointer;
+        }
+        .name {
+          font-weight: 500;
+          line-height: 12px;
+          font-size: 10px;
+          text-align: center;
+          margin: 3px 0;
+          padding: 0;
+          color: #fff;
+        }
+        .lucent {
+          opacity: 0.4;
+        }
+      }
+      .right-content-wrap {
+        width: 100%;
+        float: right;
+        padding: 4px 0;
+        .right-content {
+          margin-top: -10px;
+          margin-left: 60px;
+          margin-right: 20px;
+          padding: 0 10px;
+          .system, .desc, .correct {
+            display: inline-block;
+            word-wrap: break-word;
+            margin-top: 10px;
+            max-width: 100%;
+            width: auto;
+            padding: 5px 15px;
+            font-size: 80%;
+            line-height: 12px;
+            letter-spacing: 1px;
+            font-weight: normal;
+            vertical-align: middle;
+            text-align: left;
+          }
+          .system.x-small, .desc.x-small, .correct.x-small {
+            font-size: 70%;
+            line-height: 9px;
+          }
+          .system.small, .desc.small, .correct.small {
+            font-size: 80%;
+            line-height: 12px;
+          }
+          .system.medium, .desc.medium, .correct.medium {
+            font-size: 90%;
+            line-height: normal;
+          }
+          .system.large, .desc.large, .correct.large {
+            font-size: 100%;
+            line-height: 18px;
+          }
+          .system.x-large, .desc.x-large, .correct.x-large {
+            font-size: 110%;
+            line-height: 20px;
+          }
+          .system {
+            color: #fff;
+          }
+          .desc, .correct {
+            position: relative;
+            border: solid 1px #d2d2d2;
+            border-radius: 5px;
+            letter-spacing: 2px;
+            padding: 5px 10px;
+          }
+          .desc a, .correct a {
+            color: #fff;
+          }
+          .desc img, .correct img {
+            max-width: 100%;
+            max-height: 350px;
+          }
+          .desc.stamp img, .correct.stamp img {
+            width: 160px;
+            height: 160px;
+          }
+          .date {
+            font-size: 80%;
+            color: #fff;
+            margin: 4px 20px;
+          }
+          .room-name {
+            font-size: 80%;
+          }
+        }
+      }
+    }
+  }
+
+
+  #comment-form {
+    #comment-input {
+      width: 100%;
+      height: 30px;
+      resize: none;
+      font-size: 90%;
+      margin: 0;
+      padding: 5px 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border: solid 1px #333;
+    }
+  }
+}
+

@@ -1,7 +1,7 @@
 .right-content-wrap
   .right-content
     div(class="desc medium color_#{chat.color}")
-      = nl2br(chat.comment)
+      = nl2br(auto_link(chat.comment))
 .left-content
   .user-info
     div(class="avator medium color_#{chat.color}")
