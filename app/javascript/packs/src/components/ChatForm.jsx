@@ -160,7 +160,7 @@ export default class ChatForm extends React.Component {
     autoFitCommentsHeight() {
         var windowHeight = $(window).height();
         var minCommentsHeight = 300;
-        var minusHeight = 320;
+        var minusHeight = 380;
         var commentsHeight = windowHeight - minusHeight;
         if (commentsHeight < minCommentsHeight) commentsHeight = minCommentsHeight;
         $('#comments').height(commentsHeight);
