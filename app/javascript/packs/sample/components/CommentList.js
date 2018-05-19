@@ -14,12 +14,7 @@ const CommentList = ({comments}) => (
 );
 
 CommentList.propTypes = {
-    comments: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            text: PropTypes.string.isRequired
-        }).isRequired
-    ).isRequired
+    comments: PropTypes.array.isRequired
 };
 
 export default CommentList

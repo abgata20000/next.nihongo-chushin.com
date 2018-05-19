@@ -6,10 +6,12 @@ let next_fetch = false;
 const chats_url = '/apis/chats';
 export const ADD_COMMENT = 'ADD_COMMENT';
 
-export const addComment = (id, text) => ({
+export const addComment = (chat) => ({
     type: ADD_COMMENT,
-    id: id,
-    text
+    id: chat.id,
+    comment: chat.comment,
+    icon: chat.icon,
+    color: chat.color
 });
 
 
@@ -35,7 +37,7 @@ export const fetchComments = () => (dispatch) => {
             chats.forEach(function (chat) {
                 let tmp = chat.chat;
                 lastChatId = tmp.id;
-                dispatch(addComment(tmp.id, tmp.comment));
+                dispatch(addComment(tmp));
             });
             fetching = false;
             if(next_fetch) {
