@@ -14,6 +14,20 @@ export const addComment = (chat) => ({
     color: chat.color
 });
 
+export const updateText = (text) => ({
+    type: 'UPDATE_TEXT',
+    text: text
+});
+
+export const resetText = () => ({
+    type: 'RESET_TEXT'
+});
+
+export const setMention = (name) => ({
+    type: 'SET_MENTION',
+    name: name
+});
+
 
 export const postComment = (comment) => (dispatch) => {
     request

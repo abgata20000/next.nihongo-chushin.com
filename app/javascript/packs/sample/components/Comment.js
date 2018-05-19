@@ -1,27 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {setMention} from '../actions'
 
-const click = (e, id) => {
+const click = (e, dispatch, name) => {
     e.preventDefault();
-    console.log(id);
+    dispatch(setMention(name));
 };
 
-const Comment = (chat) => (
-    <li>
-        {chat.comment}
-        <span>{chat.id}</span>
-        <button onClick={e => click(e, chat.id)}>
-            button:{chat.id}
-        </button>
-        <p>
-            icon: {chat.icon}
-        </p>
-        <p>
-            color: {chat.color}
-        </p>
-
-    </li>
-);
+const Comment = ({
+    id, comment, icon, color, dispatch
+}) =>
+    (
+        <li>
+            {comment}
+            <span>{id}</span>
+            <button onClick={e => click(e, dispatch, id)}>
+                button:{id}
+            </button>
+        </li>
+    );
 
 Comment.propTypes = {
     id: PropTypes.number.isRequired,
