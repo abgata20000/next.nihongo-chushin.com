@@ -9,9 +9,14 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const addComment = (chat) => ({
     type: ADD_COMMENT,
     id: chat.id,
+    user_id: chat.user_id,
+    room_id: chat.room_id,
     comment: chat.comment,
     icon: chat.icon,
-    color: chat.color
+    color: chat.color,
+    nickname: chat.nickname,
+    system_message: chat.system_message,
+    created_at: chat.created_at,
 });
 
 export const updateText = (text) => ({

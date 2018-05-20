@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {postComment} from '../actions'
 import {updateText} from '../actions'
 import {resetText} from '../actions'
@@ -22,20 +22,29 @@ const runPostComment = (text, dispatch) => {
     dispatch(resetText());
 };
 
-const AddComment = ({inputText, dispatch}) => {
-    let input;
-    return (
-        <div>
+class AddComment extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        console.log(this);
+    }
+
+    render() {
+        return (
+            <div>
             <textarea
-                value={inputText}
-                onChange={e => changeText(e, dispatch)}
-                onKeyPress={e => onKeypress(e, dispatch, inputText)}
+                value={this.props.inputText}
+                onChange={e => changeText(e, this.props.dispatch)}
+                onKeyPress={e => onKeypress(e, this.props.dispatch, this.props.inputText)}
             />
-            <button onClick={e => runPostComment(inputText, dispatch)}>
-                Add Comment
-            </button>
-        </div>
-    )
-};
+                <button onClick={e => runPostComment(this.props.inputText, this.props.dispatch)}>
+                    Add Comment
+                </button>
+            </div>
+        )
+    }
+}
 
 export default AddComment
