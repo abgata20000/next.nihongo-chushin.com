@@ -163,7 +163,9 @@ class User < ApplicationRecord
   end
 
   def room_expired?
-    connection_expired? || comment_expired?
+    # TODO: connection_expiredがうまくとれていない？
+    # connection_expired? || comment_expired?
+    comment_expired?
   end
 
   def connection_expired?

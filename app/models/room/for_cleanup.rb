@@ -43,8 +43,6 @@ class Room < ApplicationRecord
     def cleanup
       # 接続切れチェック
       expired_users.each do |user|
-        # TODO: 5分で接続切れになってしまっているので一旦止めておく
-        break
         user.disconnected_the_room_system_comment
         user.leave_room
         user.broadcast_disconnect
