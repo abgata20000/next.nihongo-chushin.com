@@ -10,7 +10,7 @@
 - 5.1.4
 
 ## Ruby version
-- 2.4.2
+- 2.7.2
 
 ## System dependencies
 - PostgreSQL 9.5.2
